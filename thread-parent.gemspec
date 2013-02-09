@@ -8,9 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = ThreadParent::VERSION
   gem.authors       = ['Mike Evans']
   gem.email         = ['mike@urlgonomics.com']
-  gem.description   = %q{Thread parent facilitates keeping a reference to a thread's creating
-                         thread through a 'parent' method.  Also will resolve missing thread local
-                         variables by walking up the parent chain until they are found.}
+  gem.description   = %q{ThreadParent facilitates spawning threads that maintain a reference to the thread that created them. The primary goal is to allow thread local variable lookup through the ancestor chain.}
   gem.summary       = gem.description
   gem.homepage      = 'https://github.com/mje113/thread-parent'
 
