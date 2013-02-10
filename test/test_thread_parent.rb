@@ -8,6 +8,11 @@ class TestThreadParent < MiniTest::Unit::TestCase
     Thread.current[:a] = 'a'
   end
 
+  def test_is_a_thread_parent
+    thread = Thread.new { 'work' }
+    assert_kind_of ThreadParent::Thread, thread
+  end
+
   def test_can_have_parent
     thread = Thread.new { 'work' }.join
     assert_equal Thread.current, thread.parent
