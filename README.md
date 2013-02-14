@@ -59,6 +59,7 @@ end
 ## Code Status
 
 [![Build Status](https://api.travis-ci.org/mje113/thread-parent.png)](http://travis-ci.org/mje113/thread-parent)
+[![Code Climate](https://codeclimate.com/github/mje113/thread-parent.png)](https://codeclimate.com/github/mje113/thread-parent)
 
 ## Contributing
 
