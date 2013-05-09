@@ -37,6 +37,10 @@ class Thread
     ThreadParent::Parents.new(self)
   end
 
+  def self.parent
+    Thread.current.parent
+  end
+
   def self.parents
     ThreadParent::Parents.new(Thread.current)
   end

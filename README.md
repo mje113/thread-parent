@@ -19,40 +19,39 @@ Or install it yourself as:
 
 ## Usage
 
-You can either create ThreadParent::Thread directly:
+Thread is extended to provide direct access to its 'parent', or the thread where the current
+thread was created.  It also provides a way to lookup through its ancestor chain for Thread-local variables.
 
 ```ruby
-require 'thread-parent'
+require 'thread_parent'
 
 Thread.current[:abc] = 'abc'
 
-ThreadParent::Thread.new do |thread|
+Thread.new do |thread|
   
-  thread.parent == Thread.main #= true
+  thread.parent == Thread.main #=> true
 
-  # Since the thread variable isn't set locally it will be found in its parent.
-  Thread.current[:abc] #= 'abc'
+  # Standard local variable lookup behaves as expected.
+  thread[:abc] #=> nil
 
-  # Local thread variable assignments work as expected.
-  Thread.current[:def] = 'def'
+  # Lookup through the ancestor chain is now supported.
+  thread.parents[:abc] #=> 'abc'
 
-  ThreadParent::Thread.new do
-    Thread.current[:def] #= 'def'
+  # Local thread variable assignments works as expected.
+  thread[:def] = 'def'
+  thread[:def] #=> 'def'
+  thread.parents[:def] #=> 'def' <- The calling thread is always checked first.
+
+  # Short-hand references to the current thread's parents is also provided.
+  Thread.parents[:abc] #=> 'abc'
+  Thread.parent == Thread.main #=> true
+
+  Thread.new do
+    Thread.parents[:def] #= 'def'
 
     # The parent lookup will continue to the parent's parent until a variable is found.
-    Thread.current[:abc] #= 'abc'
+    Thread.parents[:abc] #= 'abc'
   end
-end
-```
-
-Or include the module to hijack references to Thread:
-
-```ruby
-require 'thread-parent'
-include ThreadParent
-
-Thread.new do
-  # This is really a ThreadParent::Thread
 end
 ```
 
