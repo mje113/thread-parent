@@ -1,6 +1,6 @@
 require 'thread_parent/version'
 require 'thread'
-
+require 'pry'
 module ThreadParent
 
   class Parents
@@ -12,7 +12,7 @@ module ThreadParent
     def [](key)
       if @child.key?(key)
         @child[key]
-      else
+      elsif @child.parent
         @child.parent.parents[key]
       end
     end
@@ -29,15 +29,11 @@ class Thread
   end
 
   def parent
-    @_parent
+    @_parent #|| Thread.main
   end
 
   def parents
     ThreadParent::Parents.new(self)
-  end
-
-  def self.parent
-    Thread.current.parent
   end
 
   def self.parents

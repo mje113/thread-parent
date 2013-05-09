@@ -42,4 +42,5 @@ class TestThreadParent < MiniTest::Unit::TestCase
     thread = Thread.new { 'work' }.join
     assert_equal('a', thread.parents[:a])
   end
+
 end
