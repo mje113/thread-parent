@@ -1,6 +1,6 @@
 require 'thread_parent/version'
 require 'thread'
-require 'pry'
+
 module ThreadParent
 
   class Parents
@@ -29,7 +29,7 @@ class Thread
   end
 
   def parent
-    @_parent #|| Thread.main
+    @_parent
   end
 
   def parents
