@@ -1,6 +1,5 @@
 require 'thread_parent/version'
 require 'thread'
-require 'pry'
 
 module ThreadParent
 
