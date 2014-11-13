@@ -29,6 +29,14 @@ class TestThreadParent < MiniTest::Unit::TestCase
     }.join
   end
 
+  def test_can_find_thread_variable_in_parents_parent_using_class_method
+    Thread.new {
+      Thread.new {
+        assert_equal 'a', Thread.parents[:a]
+      }.join
+    }.join
+  end
+
   def test_can_override_parents_thread_variable
     thread = Thread.new {
       Thread.current[:a] = 'b'
