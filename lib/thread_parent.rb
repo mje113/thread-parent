@@ -33,10 +33,10 @@ class Thread
   end
 
   def parents
-    ThreadParent::Parents.new(self)
+    @parents ||= ThreadParent::Parents.new(self)
   end
 
   def self.parents
-    ThreadParent::Parents.new(Thread.current)
+    Thread.current.parents
   end
 end
